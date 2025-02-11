@@ -1,0 +1,19 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "main": "test.js",
+  "type": "module",
+ "scripts": {
+  "start": "node test.js",
+  "dev": "nodemon test.js"
+},
+  "author": "Hammad",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "app-store-scraper": "^0.18.0",
+    "express": "^4.21.2",
+    "google-play-scraper": "^10.0.1",
+    "nodemon": "^3.1.9"
+  }
+}
