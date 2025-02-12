@@ -6,6 +6,7 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
+
 app.get("/get-app", async (req, res) => {
   const appId = req.query.appId;
 
@@ -14,24 +15,23 @@ app.get("/get-app", async (req, res) => {
   }
 
   try {
+    // Fetch iOS app details
     let appDetailsIOS = null;
     try {
       appDetailsIOS = await store.app({ appId });
     } catch (error) {
       console.log("App not found on iOS");
     }
-    const searchResults = await gplay.search({
-      term: appDetailsIOS ? appDetailsIOS.title : "",
-      num: 1,
-    });
 
+    // Fetch Android app details
     let appDetailsAndroid = null;
-    if (searchResults.length > 0) {
-      const appIdAndroid = searchResults[0].appId;
-      appDetailsAndroid = await gplay.app({
-        appId: appIdAndroid,
-      });
+    try {
+      appDetailsAndroid = await gplay.app({ appId });
+    } catch (error) {
+      console.log("App not found on Android");
     }
+
+    // Construct the response
     const response = {
       status: "success",
       data: {
